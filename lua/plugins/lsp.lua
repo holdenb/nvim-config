@@ -2,7 +2,38 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      format = {
+        format_on_save = true, -- Enable auto-formatting
+      },
       servers = {
+        pyright = {
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "basic", -- Less aggressive type checking
+                autoImportCompletions = true,
+                diagnosticMode = "openFilesOnly", -- Only check open files (not the entire project)
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        },
+        ruff = {
+          settings = {
+            lint = true, -- Enable linting
+            organizeImports = true, -- Sort imports automatically
+          },
+        },
+        bufls = {
+          cmd = { "buf", "beta", "lsp", "--timeout=0", "--log-format=text" },
+          filetypes = { "proto" },
+          root_dir = function(fname)
+            local util = require("lspconfig.util")
+            return util.root_pattern("buf.yaml", ".git")(fname)
+          end,
+        },
+        bashls = {},
         clangd = {
           capabilities = require("cmp_nvim_lsp").default_capabilities(),
           on_attach = function(client, bufnr)
@@ -23,18 +54,6 @@ return {
             "--compile-commands-dir=./build/debug",
           },
         },
-        pyright = {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        },
-      },
-    },
-  },
-  {
-    "p00f/clangd_extensions.nvim",
-    dependencies = { "hrsh7th/nvim-cmp" }, -- Ensure it loads after nvim-cmp
-    opts = {
-      inlay_hints = {
-        enabled = true,
       },
     },
   },
