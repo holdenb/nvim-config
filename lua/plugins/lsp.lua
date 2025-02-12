@@ -48,10 +48,10 @@ return {
             "--log=error", -- Reduce logging noise
             "--completion-style=detailed", -- Show detailed completion items
             "--pch-storage=memory", -- Store precompiled headers in memory for speed
-            "--limit-results=50", -- Limit completion results for performance
+            -- "--limit-results=50", -- Limit completion results for performance
             "--folding-ranges", -- Enable code folding
             "--malloc-trim", -- Reduce memory usage,
-            "--compile-commands-dir=./build/debug",
+            "--compile-commands-dir=build/debug", -- Tell clangd where to find compile_commands.json
           },
         },
       },
