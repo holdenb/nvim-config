@@ -50,8 +50,9 @@ return {
             "--pch-storage=memory", -- Store precompiled headers in memory for speed
             -- "--limit-results=50", -- Limit completion results for performance
             "--folding-ranges", -- Enable code folding
-            "--malloc-trim", -- Reduce memory usage,
-            "--compile-commands-dir=build/debug", -- Tell clangd where to find compile_commands.json
+            -- "--malloc-trim", -- Reduce memory usage,
+            -- Symlink the compile-commands dir if it's not in the project root!
+            -- "--compile-commands-dir=build/debug", -- Tell clangd where to find compile_commands.json
           },
         },
       },
