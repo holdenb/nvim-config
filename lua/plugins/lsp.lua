@@ -35,12 +35,17 @@ return {
         },
         bashls = {},
         clangd = {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+          capabilities = (function()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities.offsetEncoding = { "utf-8" }
+            return capabilities
+          end)(),
           on_attach = function(client, bufnr)
             require("clangd_extensions").setup()
           end,
           cmd = {
-            "clangd",
+            vim.fn.stdpath("data") .. "/mason/bin/clangd",
+            "--offset-encoding=utf-8",
             "--background-index", -- Enable background indexing
             "--clang-tidy", -- Enable Clang-Tidy checks
             "--suggest-missing-includes", -- Suggest missing headers
@@ -48,11 +53,8 @@ return {
             "--log=error", -- Reduce logging noise
             "--completion-style=detailed", -- Show detailed completion items
             "--pch-storage=memory", -- Store precompiled headers in memory for speed
-            -- "--limit-results=50", -- Limit completion results for performance
             "--folding-ranges", -- Enable code folding
-            -- "--malloc-trim", -- Reduce memory usage,
-            -- Symlink the compile-commands dir if it's not in the project root!
-            -- "--compile-commands-dir=build/debug", -- Tell clangd where to find compile_commands.json
+            "--malloc-trim", -- Reduce memory usage,
           },
         },
       },
