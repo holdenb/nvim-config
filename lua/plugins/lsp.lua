@@ -3,7 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       format = {
-        format_on_save = true, -- Enable auto-formatting
+        format_on_save = true,
       },
       servers = {
         pyright = {
@@ -11,9 +11,8 @@ return {
           settings = {
             python = {
               analysis = {
-                typeCheckingMode = "basic", -- Less aggressive type checking
                 autoImportCompletions = true,
-                diagnosticMode = "openFilesOnly", -- Only check open files (not the entire project)
+                diagnosticMode = "openFilesOnly",
                 useLibraryCodeForTypes = true,
               },
             },
@@ -21,8 +20,8 @@ return {
         },
         ruff = {
           settings = {
-            lint = true, -- Enable linting
-            organizeImports = true, -- Sort imports automatically
+            lint = true,
+            organizeImports = true,
           },
         },
         bufls = {
@@ -37,7 +36,7 @@ return {
         clangd = {
           capabilities = (function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.offsetEncoding = { "utf-8" }
+            capabilities.offsetEncoding = { "utf-8", "utf-16", "utf-32" }
             return capabilities
           end)(),
           on_attach = function(client, bufnr)
@@ -46,15 +45,13 @@ return {
           cmd = {
             vim.fn.stdpath("data") .. "/mason/bin/clangd",
             "--offset-encoding=utf-8",
-            "--background-index", -- Enable background indexing
-            "--clang-tidy", -- Enable Clang-Tidy checks
-            "--suggest-missing-includes", -- Suggest missing headers
-            "--header-insertion=never", -- Avoid unwanted header insertion
-            "--log=error", -- Reduce logging noise
-            "--completion-style=detailed", -- Show detailed completion items
-            "--pch-storage=memory", -- Store precompiled headers in memory for speed
-            "--folding-ranges", -- Enable code folding
-            "--malloc-trim", -- Reduce memory usage,
+            "--background-index",
+            "--clang-tidy",
+            "--suggest-missing-includes",
+            "--header-insertion=never",
+            "--completion-style=detailed",
+            "--pch-storage=memory",
+            "--folding-ranges",
           },
         },
       },

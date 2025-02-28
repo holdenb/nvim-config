@@ -8,11 +8,6 @@ vim.g.maplocalleader = " "
 
 -- Insert mode escape
 vim.keymap.set("i", "jk", "<Esc>")
--- vim.keymap.set("i", "kj", "<Esc>")
-
--- Visual mode escape
--- vim.keymap.set("v", "jk", "<Esc>")
--- vim.keymap.set("v", "kj", "<Esc>")
 
 -- yank to system clipboard
 keymap({ "n", "v" }, "<leader>y", '"+y', opts)

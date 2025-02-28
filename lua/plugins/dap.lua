@@ -2,15 +2,14 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      "rcarriga/nvim-dap-ui", -- UI for debugging
-      "theHamsta/nvim-dap-virtual-text", -- Inline debug info
-      "jay-babu/mason-nvim-dap.nvim", -- Auto-install debuggers
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+      "jay-babu/mason-nvim-dap.nvim",
     },
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
 
-      -- Ensure UI opens on debugging
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
@@ -21,35 +20,55 @@ return {
         dapui.close()
       end
 
-      -- Setup GDB for C++
-      dap.adapters.cppdbg = {
-        id = "cppdbg",
+      dap.adapters.gdb = {
         type = "executable",
-        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- C++ Debug Adapter
+        command = "gdb",
+        args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
       }
 
-      dap.configurations.cpp = {
+      dap.configurations.c = {
         {
-          name = "Launch C++ Program",
-          type = "cppdbg",
+          name = "Launch",
+          type = "gdb",
           request = "launch",
           program = function()
             return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
           cwd = "${workspaceFolder}",
-          stopAtEntry = false,
-          setupCommands = {
-            {
-              text = "-enable-pretty-printing",
-              description = "Enable GDB pretty printing",
-              ignoreFailures = false,
-            },
-          },
+          stopAtBeginningOfMainSubprogram = false,
+        },
+        {
+          name = "Select and attach to process",
+          type = "gdb",
+          request = "attach",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          pid = function()
+            local name = vim.fn.input("Executable name (filter): ")
+            return require("dap.utils").pick_process({ filter = name })
+          end,
+          cwd = "${workspaceFolder}",
+        },
+        {
+          name = "Attach to gdbserver :1234",
+          type = "gdb",
+          request = "attach",
+          target = "localhost:1234",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
         },
       }
 
       require("dapui").setup()
-      require("nvim-dap-virtual-text").setup()
+      require("nvim-dap-virtual-text").setup({
+        enabled = true,
+        enabled_commands = false,
+        highlight_changed_variables = true,
+        show_stop_reason = true,
+      })
     end,
   },
 }

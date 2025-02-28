@@ -1,5 +1,4 @@
 return {
-  -- Bufferline
   {
     "akinsho/bufferline.nvim",
     dependencies = {

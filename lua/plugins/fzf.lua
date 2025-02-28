@@ -8,7 +8,7 @@ return {
       files = {
         -- This is needed because 'jump_to_single_result' is now deprecated and
         -- gives a ton of warnings...
-        jump1 = true, -- Replace 'jump_to_single_result' with 'jump1'
+        jump1 = true,
       },
       grep = {
         jump1 = true,

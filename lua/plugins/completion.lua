@@ -81,7 +81,7 @@ return {
   },
   {
     "p00f/clangd_extensions.nvim",
-    dependencies = { "hrsh7th/nvim-cmp" }, -- Ensure it loads after nvim-cmp
+    dependencies = { "hrsh7th/nvim-cmp" },
     opts = {
       inlay_hints = {
         enabled = true,

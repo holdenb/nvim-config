@@ -3,7 +3,7 @@ return {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
-        python = { "ruff" }, -- Use Ruff for Python linting
+        python = { "ruff" },
       },
     },
   },
