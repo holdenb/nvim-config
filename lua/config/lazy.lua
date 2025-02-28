@@ -36,6 +36,12 @@ require("lazy").setup({
               },
             },
           },
+          pickers = {
+            lsp_document_symbols = {
+              symbol_width = 50,
+              symbol_type = true,
+            },
+          },
         })
       end,
     },
@@ -44,7 +50,7 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  -- install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
     enabled = true,
     notify = false,

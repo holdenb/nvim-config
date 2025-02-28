@@ -36,7 +36,7 @@ return {
         clangd = {
           capabilities = (function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.offsetEncoding = { "utf-8", "utf-16", "utf-32" }
+            capabilities.offsetEncoding = { "utf-8" }
             return capabilities
           end)(),
           on_attach = function(client, bufnr)
