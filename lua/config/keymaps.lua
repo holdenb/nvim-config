@@ -42,6 +42,14 @@ if not vim.g.vscode then
 else
 end
 
+-- local dapui = require("dapui")
+-- vim.keymap.set("n", "<leader>dq", function()
+--   dapui.toggle()
+-- end, { desc = "Toggle Debug UI" })
+-- vim.keymap.set("n", "<leader>dq", function()
+--   dapui.toggle()
+-- end, { desc = "Toggle Debug UI" })
+
 -- Allow Tab to skip past specific closing indicators
 vim.keymap.set("i", "<Tab>", function()
   local col = vim.fn.col(".")
@@ -52,3 +60,9 @@ vim.keymap.set("i", "<Tab>", function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", true)
   end
 end, { expr = true })
+
+if vim.g.vscode then
+  vim.keymap.set("n", "<leader>ca", function()
+    vim.fn.VSCodeNotify("editor.action.quickFix")
+  end, { desc = "Quick Fix (VSCode)" })
+end
