@@ -20,7 +20,6 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import/override with your plugins
     { import = "plugins" },
-
     -- Add Telescope and its dependency
     {
       "nvim-telescope/telescope.nvim",
@@ -50,7 +49,6 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  -- install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
     enabled = true,
     notify = false,

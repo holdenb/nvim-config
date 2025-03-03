@@ -39,7 +39,7 @@ return {
             capabilities.offsetEncoding = { "utf-8" }
             return capabilities
           end)(),
-          on_attach = function(client, bufnr)
+          on_attach = function(_, _)
             require("clangd_extensions").setup()
           end,
           cmd = {
