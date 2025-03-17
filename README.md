@@ -1,3 +1,3 @@
-# 💤 LazyVim
+# My Neovim Config (💤 LazyVim)
 
-My LazyVim config. Enjoy!
+Enjoy!
