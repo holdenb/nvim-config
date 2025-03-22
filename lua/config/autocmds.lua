@@ -7,11 +7,20 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
-local group = vim.api.nvim_create_augroup("waf_python", { clear = true })
+local py_waf_group = vim.api.nvim_create_augroup("waf_python", { clear = true })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "wscript", "waf" },
   callback = function()
     vim.bo.filetype = "python"
   end,
-  group = group,
+  group = py_waf_group,
+})
+
+local xml_urdf_group = vim.api.nvim_create_augroup("urdf_xml", { clear = true })
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "urdf", ".*%.xml%..+" },
+  callback = function()
+    vim.bo.filetype = "xml"
+  end,
+  group = xml_urdf_group,
 })

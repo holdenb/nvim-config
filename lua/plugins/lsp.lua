@@ -54,6 +54,19 @@ return {
             "--folding-ranges",
           },
         },
+        lemminx = {
+          filetypes = { "xml", "urdf" },
+          settings = {
+            xml = {
+              server = {
+                workDir = ".",
+              },
+              catalogs = {
+                vim.fn.expand("~/.config/lemminx/catalog.xml"),
+              },
+            },
+          },
+        },
       },
     },
   },
