@@ -9,7 +9,7 @@
 
 local py_waf_group = vim.api.nvim_create_augroup("waf_python", { clear = true })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "wscript", "waf" },
+  pattern = { "wscript", "wscript_build", "waf" },
   callback = function()
     vim.bo.filetype = "python"
   end,
