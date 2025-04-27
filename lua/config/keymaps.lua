@@ -40,6 +40,23 @@ if not vim.g.vscode then
   vim.keymap.set("n", "<Leader>dx", function()
     dap.terminate()
   end, { desc = "Stop Debugging" })
+
+  vim.keymap.set("n", "<leader>mi", ":MoltenInit<CR>", { desc = "Molten Init Kernel" })
+  vim.keymap.set("n", "<leader>ml", ":MoltenEvaluateLine<CR>", { desc = "Molten Eval Line" })
+  vim.keymap.set("v", "<leader>mv", ":MoltenEvaluateVisual<CR>", { desc = "Molten Eval Visual" })
+  vim.keymap.set("n", "<leader>mo", ":MoltenShowOutput<CR>", { desc = "Molten Show Output" })
+
+  vim.keymap.set("n", "<leader>mr", function()
+    require("notebook").run_cell()
+  end, { desc = "Run Current Cell" })
+
+  vim.keymap.set("n", "<leader>mn", function()
+    require("notebook").next_cell()
+  end, { desc = "Move to Next Cell" })
+
+  vim.keymap.set("n", "<leader>mp", function()
+    require("notebook").prev_cell()
+  end, { desc = "Move to Previous Cell" })
 else
 end
 
