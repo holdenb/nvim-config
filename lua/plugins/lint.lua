@@ -8,7 +8,6 @@ return {
       cpp = { "cpplint" },
     }
 
-    -- Define cpplint linter
     lint.linters.cpplint = {
       name = "cpplint",
       cmd = "cpplint",
@@ -45,13 +44,13 @@ return {
             if not should_ignore then
               table.insert(diagnostics, {
                 bufnr = bufnr,
-                lnum = tonumber(lnum) - 1, -- Convert to 0-based index
+                lnum = tonumber(lnum) - 1,
                 col = 0,
                 severity = ({
                   info = vim.diagnostic.severity.HINT,
                   warning = vim.diagnostic.severity.WARN,
                   error = vim.diagnostic.severity.ERROR,
-                })[severity:lower()] or vim.diagnostic.severity.WARN, -- Default to WARN
+                })[severity:lower()] or vim.diagnostic.severity.WARN,
                 source = "cpplint",
                 message = message,
               })
