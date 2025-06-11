@@ -2,6 +2,13 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      capabilities = {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          },
+        },
+      },
       format = {
         format_on_save = true,
       },
