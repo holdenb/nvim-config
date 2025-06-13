@@ -44,11 +44,9 @@ return {
           capabilities = (function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             capabilities.offsetEncoding = { "utf-8" }
+            capabilities.textDocument.completion.snippetSupport = false
             return capabilities
           end)(),
-          on_attach = function(_, _)
-            require("clangd_extensions").setup()
-          end,
           cmd = {
             vim.fn.stdpath("data") .. "/mason/bin/clangd",
             "--offset-encoding=utf-8",
