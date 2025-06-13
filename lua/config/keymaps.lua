@@ -24,6 +24,11 @@ end, { expr = true })
 
 -- Debugging keybinds
 if not vim.g.vscode then
+  local dapui = require("dapui")
+  vim.keymap.set("n", "<leader>dq", function()
+    dapui.toggle()
+  end, { desc = "DAP UI Toggle" })
+
   local dap = require("dap")
   vim.keymap.set("n", "<Leader>ds", function()
     dap.continue()
@@ -54,14 +59,6 @@ if not vim.g.vscode then
   end, { desc = "Stop Debugging" })
 else
 end
-
--- local dapui = require("dapui")
--- vim.keymap.set("n", "<leader>dq", function()
---   dapui.toggle()
--- end, { desc = "Toggle Debug UI" })
--- vim.keymap.set("n", "<leader>dq", function()
---   dapui.toggle()
--- end, { desc = "Toggle Debug UI" })
 
 ------------------------------------------------------------------
 -- VSCode keymaps --
