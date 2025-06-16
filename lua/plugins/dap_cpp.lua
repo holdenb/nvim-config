@@ -15,12 +15,7 @@ return {
         type = "cppdbg",
         request = "launch",
         program = function()
-          return vim.fn.input(
-            "Path to binary: ",
-            vim.fn.getcwd()
-              .. "/build/debug/unittests/path/dynamic/manipulation/manipulation-metadata-generator-unit-test",
-            "file"
-          )
+          return vim.fn.input("Path to binary: ", vim.fn.getcwd() .. "TODO", "file")
         end,
         cwd = "${workspaceFolder}",
         MIMode = "gdb",
@@ -28,7 +23,7 @@ return {
         miDebuggerServerAddress = "127.0.0.1:1234",
         stopAtEntry = false,
         sourceFileMap = {
-          ["/checkout/src"] = "/home/seegrid.local/hbabineaux/devel/code/vehicle-metapackage/submodules/blue",
+          ["/checkout/src"] = "TODO",
         },
         setupCommands = {
           {
