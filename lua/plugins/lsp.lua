@@ -10,7 +10,10 @@ return {
         },
       },
       format = {
-        format_on_save = true,
+        format_on_save = {
+          enabled = true,
+          ignore_filetypes = { "proto" },
+        },
       },
       servers = {
         pyright = {
@@ -38,9 +41,15 @@ return {
             local util = require("lspconfig.util")
             return util.root_pattern("buf.yaml", ".git")(fname)
           end,
+          on_attach = function(client, _)
+            -- Disable formatting capability
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
         },
         bashls = {},
         clangd = {
+          filetypes = { "c", "cpp", "objc", "objcpp" },
           capabilities = (function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             capabilities.offsetEncoding = { "utf-8" }
