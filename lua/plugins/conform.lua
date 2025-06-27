@@ -6,6 +6,7 @@ return {
       c = { "clang-format" },
       lua = { "stylua" },
       python = { "black", "ruff" },
+      go = { "gofmt" },
       xml = { "xmlformatter" },
     },
     formatters = {
