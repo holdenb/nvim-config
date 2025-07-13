@@ -15,9 +15,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
   group = xml_urdf_group,
 })
-
--- vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
---   pattern = { "*" },
---   command = "silent! wall",
---   nested = true,
--- })
