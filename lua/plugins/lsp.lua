@@ -16,18 +16,19 @@ return {
         },
       },
       servers = {
-        pyright = {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          settings = {
-            python = {
-              analysis = {
-                autoImportCompletions = true,
-                diagnosticMode = "openFilesOnly",
-                useLibraryCodeForTypes = true,
-              },
-            },
-          },
-        },
+        -- see python.lua for updated LSP config
+        -- pyright = {
+        --   capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        --   settings = {
+        --     python = {
+        --       analysis = {
+        --         autoImportCompletions = true,
+        --         diagnosticMode = "openFilesOnly",
+        --         useLibraryCodeForTypes = true,
+        --       },
+        --     },
+        --   },
+        -- },
         ruff = {
           settings = {
             lint = true,
