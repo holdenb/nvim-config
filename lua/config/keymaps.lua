@@ -1,6 +1,6 @@
+------------------------------------------------------------------
 -- Global keymaps --
-
--- Insert mode escape
+------------------------------------------------------------------
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("i", "kj", "<Esc>")
 
@@ -21,14 +21,14 @@ end, { expr = true })
 
 ------------------------------------------------------------------
 -- Neovim keymaps --
-
--- Debugging keybinds
+------------------------------------------------------------------
 if not vim.g.vscode then
   local dapui = require("dapui")
   vim.keymap.set("n", "<leader>dq", function()
     dapui.toggle()
   end, { desc = "DAP UI Toggle" })
 
+  -- Debugging keybinds
   local dap = require("dap")
   vim.keymap.set("n", "<Leader>ds", function()
     dap.continue()
@@ -62,9 +62,36 @@ end
 
 ------------------------------------------------------------------
 -- VSCode keymaps --
-
+------------------------------------------------------------------
 if vim.g.vscode then
-  vim.keymap.set("n", "<leader>ca", function()
+  local keymap = vim.keymap.set
+  local opts = { noremap = true, silent = true }
+
+  -- remap leader key
+  keymap("n", "<Space>", "", opts)
+  vim.g.mapleader = " "
+  vim.g.maplocalleader = " "
+
+  -- Insert mode escape
+  vim.keymap.set("i", "jk", "<Esc>")
+
+  -- yank to system clipboard
+  keymap({ "n", "v" }, "<leader>y", '"+y', opts)
+
+  -- paste from system clipboard
+  keymap({ "n", "v" }, "<leader>p", '"+p', opts)
+
+  -- paste preserves primal yanked piece
+  keymap("v", "p", '"_dP', opts)
+
+  -- removes highlighting after escaping vim search
+  keymap("n", "<Esc>", "<Esc>:noh<CR>", opts)
+
+  -- general keymaps
+  keymap({ "n", "v" }, "<leader>b", "<cmd>lua require('vscode').action('editor.debug.action.toggleBreakpoint')<CR>")
+
+  -- editor quickfix action
+  keymap("n", "<leader>ca", function()
     vim.fn.VSCodeNotify("editor.action.quickFix")
   end, { desc = "Quick Fix (VSCode)" })
 end

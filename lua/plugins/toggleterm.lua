@@ -11,7 +11,7 @@ return {
       float_opts = { border = "rounded" },
     },
     keys = {
-      -- Toggle a single persistent floating shell from anywhere
+      -- Toggle persistent floating shell from anywhere
       {
         "<leader>ft",
         function()
@@ -37,7 +37,7 @@ return {
           close_on_exit = false,
           hidden = true,
         })
-      -- Optional: easy ESC behavior inside the terminal
+      -- ESC behavior inside the terminal
       vim.api.nvim_create_autocmd("TermOpen", {
         pattern = "term://*toggleterm#*",
         callback = function(ev)
