@@ -16,52 +16,21 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
     { import = "plugins" },
-    -- Add Telescope and its dependency
-    {
-      "nvim-telescope/telescope.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      cmd = "Telescope", -- Lazy-load on `:Telescope` command
-      config = function()
-        require("telescope").setup({
-          defaults = {
-            mappings = {
-              i = {
-                ["<C-u>"] = false,
-                ["<C-d>"] = false,
-              },
-            },
-          },
-          pickers = {
-            lsp_document_symbols = {
-              symbol_width = 50,
-              symbol_type = true,
-            },
-          },
-        })
-      end,
-    },
   },
   defaults = {
     lazy = false,
     version = false,
   },
+  install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
     enabled = true,
     notify = false,
   },
   performance = {
     rtp = {
-      disabled_plugins = {
-        "gzip",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
+      disabled_plugins = {},
     },
   },
 })

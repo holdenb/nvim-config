@@ -1,25 +1,33 @@
 return {
-  -- Ensure LSPs are installed
+  -- Requirements
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "basedpyright", "taplo" }) -- taplo for TOML
+      vim.list_extend(opts.ensure_installed, { "basedpyright", "taplo" })
     end,
   },
 
-  -- Configure the Python LSP to always use the workspace root .venv
+  -- LSP Config
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
       local util = require("lspconfig.util")
 
+      -- Configure the Python LSP to always use the workspace root .venv
       local function ws_root(fname)
         -- Prefer uv workspaces; fall back to git/pyproject
         return util.root_pattern("uv.lock", ".git", "pyproject.toml")(fname) or vim.loop.cwd()
       end
 
       opts.servers = opts.servers or {}
+
+      opts.servers.ruff = {
+        settings = {
+          lint = true,
+          organizeImports = true,
+        },
+      }
 
       opts.servers.pyright = {
         root_dir = ws_root,
