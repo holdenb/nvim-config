@@ -4,7 +4,7 @@ return {
     local lint = require("lint")
 
     opts.linters_by_ft = {
-      -- python = { "ruff" },
+      python = { "ruff" },
       cpp = { "cpplint" },
     }
 
