@@ -144,11 +144,11 @@ return {
       end
 
       -- Keymaps: external ultra-smooth splits
-      vim.keymap.set("n", "<leader>tG", function()
+      vim.keymap.set("n", "<leader>tg", function()
         wezterm_split("right", 60, "lazygit")
       end, { desc = "Lazygit (WezTerm split right)" })
-      vim.keymap.set("n", "<leader>tB", function()
-        wezterm_split("bottom", 40, "btop")
+      vim.keymap.set("n", "<leader>tb", function()
+        wezterm_split("bottom", 60, "btop")
       end, { desc = "btop (WezTerm split bottom)" })
 
       -- Optional: quick pane focus from nvim
