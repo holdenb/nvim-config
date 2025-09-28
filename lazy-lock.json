@@ -39,7 +39,7 @@
   "neo-tree.nvim": { "branch": "main", "commit": "e345ad863aa0255cb472ff414f6f10a9ceafac15" },
   "neogen": { "branch": "main", "commit": "d7f9461727751fb07f82011051338a9aba07581d" },
   "neotest": { "branch": "master", "commit": "2cf3544fb55cdd428a9a1b7154aea9c9823426e8" },
-  "neotest-golang": { "branch": "main", "commit": "3a078f94a19045d545750585713e43953b864aa2" },
+  "neotest-golang": { "branch": "main", "commit": "dd5f63b6dc9fe8d8c9b5fc1c5651437e3d2cf0f3" },
   "neotest-python": { "branch": "master", "commit": "7cab6e2ecc260bf61b97ca147574a470bd880cbd" },
   "noice.nvim": { "branch": "main", "commit": "0427460c2d7f673ad60eb02b35f5e9926cf67c59" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
