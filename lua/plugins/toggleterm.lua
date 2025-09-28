@@ -49,6 +49,20 @@ return {
       --   end,
       --   desc = "btop (float)",
       -- },
+      {
+        "<leader>tg",
+        function()
+          vim.fn.jobstart({ "wezterm", "start", "--cwd", vim.loop.cwd(), "lazygit" }, { detach = true })
+        end,
+        desc = "Lazygit (WezTerm)",
+      },
+      {
+        "<leader>tb",
+        function()
+          vim.fn.jobstart({ "wezterm", "start", "--cwd", vim.loop.cwd(), "btop" }, { detach = true })
+        end,
+        desc = "btop (WezTerm)",
+      },
     },
     opts = {
       size = function(term)
@@ -94,6 +108,64 @@ return {
     },
     config = function(_, opts)
       require("toggleterm").setup(opts)
+
+      -- Helper: run a wezterm cli command (returns job id or 0 on failure)
+      local function wezterm_cli(args)
+        if vim.fn.executable("wezterm") ~= 1 then
+          return 0
+        end
+        return vim.fn.jobstart(vim.list_extend({ "wezterm", "cli" }, args), { detach = true })
+      end
+
+      -- Split current WezTerm window and run a command
+      local function wezterm_split(direction, percent, cmd)
+        percent = tostring(percent or 50)
+        local dirflag = (direction == "right") and "--right" or "--bottom"
+        local args = { "split-pane", dirflag, "--percent", percent, "--cwd", vim.loop.cwd(), "--" }
+        -- split 'cmd' string into argv
+        for w in tostring(cmd):gmatch("%S+") do
+          table.insert(args, w)
+        end
+        local ok = wezterm_cli(args)
+        if ok == 0 then
+          -- Fallback: open a new WezTerm window if CLI/mux isn’t available
+          vim.fn.jobstart({ "wezterm", "start", "--cwd", vim.loop.cwd(), cmd }, { detach = true })
+        end
+      end
+
+      -- Optional: focus helpers (move focus to the pane you just created)
+      local function wezterm_focus(dir)
+        wezterm_cli({ "activate-pane-direction", dir })
+      end
+
+      -- Optional: resize helpers (bump by 5 cells)
+      local function wezterm_resize(dir, cells)
+        wezterm_cli({ "adjust-pane-size", dir, tostring(cells or 5) })
+      end
+
+      -- Keymaps: external ultra-smooth splits
+      vim.keymap.set("n", "<leader>tG", function()
+        wezterm_split("right", 60, "lazygit")
+      end, { desc = "Lazygit (WezTerm split right)" })
+      vim.keymap.set("n", "<leader>tB", function()
+        wezterm_split("bottom", 40, "btop")
+      end, { desc = "btop (WezTerm split bottom)" })
+
+      -- Optional: quick pane focus from nvim
+      vim.keymap.set("n", "<leader>wL", function()
+        wezterm_focus("Right")
+      end, { desc = "WezTerm focus Right" })
+      vim.keymap.set("n", "<leader>wJ", function()
+        wezterm_focus("Down")
+      end, { desc = "WezTerm focus Down" })
+
+      -- Optional: quick resize
+      vim.keymap.set("n", "<leader>w>", function()
+        wezterm_resize("Right", 5)
+      end, { desc = "WezTerm grow Right" })
+      vim.keymap.set("n", "<leader>w+", function()
+        wezterm_resize("Down", 2)
+      end, { desc = "WezTerm grow Down" })
 
       -- Terminal QoL
       vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "Term: normal mode" })
@@ -147,8 +219,8 @@ return {
       --   size = 100,
       --   start_in_insert = true,
       --   shade_terminals = false,
+      --   env = { TERM = "xterm-256color", NVIM_TUI_ENABLE_CURSOR_SHAPE = "0" },
       --   on_open = function(term)
-      --     -- q to quit
       --     vim.keymap.set("t", "q", [[<C-\><C-n>:close<cr>]], { buffer = term.bufnr, silent = true })
       --   end,
       -- })
@@ -163,6 +235,10 @@ return {
       --   size = 100,
       --   start_in_insert = true,
       --   shade_terminals = false,
+      --   env = { TERM = "xterm-256color", NVIM_TUI_ENABLE_CURSOR_SHAPE = "0" },
+      --   on_open = function(term)
+      --     vim.keymap.set("t", "q", [[<C-\><C-n>:close<cr>]], { buffer = term.bufnr, silent = true })
+      --   end,
       -- })
       -- function _BTOP_TOGGLE()
       --   btop:toggle()
@@ -188,8 +264,8 @@ return {
         { "<leader>tt", desc = "Terminal (float)" },
         { "<leader>tv", desc = "Terminal (vertical)" },
         { "<leader>th", desc = "Terminal (horizontal)" },
-        { "<leader>tg", desc = "Lazygit (float)" },
-        { "<leader>tb", desc = "btop (float)" },
+        { "<leader>tg", desc = "Lazygit (WezTerm)" },
+        { "<leader>tb", desc = "btop (WezTerm)" },
       })
       return opts
     end,
