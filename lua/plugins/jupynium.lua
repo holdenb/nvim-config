@@ -51,6 +51,7 @@ return {
     opts = {
       jupyter_command = "jupyter",
       default_notebook_URL = "localhost:8888/nbclassic",
+      -- use_default_keybinds = false,
     },
   },
 
